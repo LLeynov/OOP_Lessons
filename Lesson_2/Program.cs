@@ -9,11 +9,12 @@ namespace Homework_OOP_2
     {
         static void Main(string[] args)
         {
-           Bank_account bank = new Bank_account(50000,_enum_account_type.credit);
+            //Bank_account bank = new Bank_account(50000, _enum_account_type.credit);
+          
+        }   
+        
             
-            
-            
-        }
+     
     }
 }
 
