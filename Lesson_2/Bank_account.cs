@@ -80,17 +80,17 @@ namespace OOP_2
         {
             Console.WriteLine($"Введите желаемую сумму для снятия. Доступно для снятия : {_balance}");
             int desired_amount = Convert.ToInt32(Console.ReadLine());
-            if (desired_amount <= _balance) 
+            if (desired_amount <= _balance)
             {
-                if(desired_amount > 0)
+                if (desired_amount > 0)
                 {
                     int new_balance = _balance - desired_amount;
                     Console.WriteLine($"Успешное снятие : {desired_amount}р.,на счету осталось : {new_balance}р.");
                 }
-  
+
             }
             else Console.WriteLine("Денег на счету недостаточно для снятия желаемой суммы.");
-            
+
         }
         internal void Replenishment()
         {
