@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System.Text.RegularExpressions;
 
 namespace OOP_2
 {
@@ -12,50 +12,33 @@ namespace OOP_2
 
             return text;
         }
-        public void Files()
+    }
+
+    public class MailExtracter
+    {
+        public static string SearchMail(ref string s)
         {
-            string path = @"C:\GeekBrains\Homework\Lesson_2\Lesson_2\Contacts.txt";
-            // Console.WriteLine("Введите текст.");
-            // string text = Console.ReadLine();
-            //using(FileStream stream = new FileStream(path, FileMode.Open))
-            // {
-            //     byte[] array = System.Text.Encoding.Default.GetBytes(text);
+            const string MatchEmailPattern =
+                @"(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@"
+                + @"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\."
+                + @"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                + @"([a-zA-Z]+[\w-]+\.)+[a-zA-Z]{2,4})";
 
-            //     stream.Write(array, 0, array.Length);
-            // }
+            Regex rx = new Regex(
+                MatchEmailPattern,
+                RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-            //using (FileStream stream1 = File.OpenRead(path))
-            //{
-            //    byte[] array1 = new byte[stream1.Length];
-            //    stream1.Read(array1, 0, array1.Length);
+            MatchCollection matches = rx.Matches(s);
 
+            int noOfMatches = matches.Count;
 
-            //    string textFromFile = System.Text.Encoding.Default.GetString(array1);
-            //    Console.WriteLine(textFromFile);
-            //}
+            string[] arraymatches = new string[matches.Count];
+            for (int i = 0; i < matches.Count; i++)
+                arraymatches[i] = matches[i].Value;
 
+            s = string.Join($"\n", arraymatches);
 
-        }
-        public string Mail()
-        {
-            string path = @"C:\GeekBrains\Homework\Lesson_2\Lesson_2\Contacts.txt";
-            using (FileStream stream1 = File.OpenRead(path))
-            {
-                byte[] array1 = new byte[stream1.Length];
-                stream1.Read(array1, 0, array1.Length);
-
-
-                string textFromFile = System.Text.Encoding.Default.GetString(array1);
-                //Console.WriteLine(textFromFile);
-
-                string[] email = textFromFile.Split(new char[] { '&', ' ' });
-                string[] kezarray = new string[2];
-                kezarray[0] =  email[5] ;
-                kezarray[1] = email[10];
-                string hello = "рш";
-                Console.WriteLine(kezarray[0]+" " + kezarray[1]);
-                return hello;
-            }
+            return s;
         }
     }
 }
